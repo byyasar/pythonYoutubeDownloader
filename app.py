@@ -96,6 +96,7 @@ class YouTubeInstaller:
     def titleArindir(self,zTitle):
         zTitle = zTitle.replace("/","")
         zTitle = zTitle.replace(".","")
+        #zTitle = zTitle.replace("#","")
         return zTitle
 
     def mp3Download(self):
@@ -104,7 +105,7 @@ class YouTubeInstaller:
         self.ytDownload() 
 
         #yeniDosyaAdi = self.titleArindir(self.videoAdi)
-        #self.uznatiDegistir(yeniDosyaAdi+".webm",self.videoAdi,".mp3")
+        #self.uznatiDegistir(self.videoAdi,yeniDosyaAdi,".webm")
         try:
             print("Mp3 dönüştürülüyor")
             self.mp3Donustur(self.videoAdi)
@@ -114,8 +115,9 @@ class YouTubeInstaller:
     def mp3Donustur(self,file_name):
         path=os.getcwd()
         output_file=path+"/mp3/"+file_name+".mp3"
-        file_name= path+"/"+file_name+".webm"
-        stream=ffmpeg.input(file_name)
+        input_file= path+"/"+file_name+".webm"
+        input_file = input_file.replace("#","")
+        stream=ffmpeg.input(input_file)
         stream=ffmpeg.output(stream,output_file)
         try:
             ffmpeg.run(stream)
@@ -124,8 +126,8 @@ class YouTubeInstaller:
         durum = self.downloadDurum
         if durum == True:
             try:
-                print()
-                os.remove(f'{file_name}')
+                print(f'silinecek dosya {input_file}')
+                os.remove(input_file)
             except Exception as ex: 
                 print(f'Silme hatası oluştu {ex}')
 

@@ -18,4 +18,4 @@ pyinstaller --onefile --icon=icons8_youtube.ico main.py
 pyinstaller --onefile donustur.py
 
 
-https://www.youtube.com/watch?v=tNGfVp4KY2g&feature=push-sd&attr_tag=Q423yLv7QChYLXe8%3A6
+https://www.youtube.com/watch?v=tNGfVp4KY2g&feature=push-sd&att
