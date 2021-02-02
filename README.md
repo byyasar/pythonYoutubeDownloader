@@ -16,5 +16,5 @@ D:\pythonYoutubeDownlaoder\venv\Scripts\deactivate.bat
 
 # Exe yapma
 pyinstaller --onefile --icon=icons8_youtube.ico main.py
-pyinstaller --onefile donustur.py 
+pyinstaller --onefile donustur.py
 
