@@ -33,8 +33,8 @@ class YouTubeInstaller:
                 return self.resolitions[i][2]
 
 
-    def mp4Download(self,islem):
-        
+    def mp4Download(self):
+        global islem
         liste = list(self.ytLink.streams.filter(progressive=True,file_extension="mp4"))
         #liste = self.ytLink.streams.filter(file_extension="mp4").order_by('resolution')
         hdliste=list(self.ytLink.streams.filter(file_extension='mp4').order_by('resolution').desc())
@@ -44,14 +44,15 @@ class YouTubeInstaller:
         liste.extend(hdliste)
         print(liste)
         print("\n\n")
-        #print(f'Gelen islem={islem}')
+        print(f'Gelen islem={islem}')
         for i in range(3):
             print(self.resolitions[i][0], " => ", self.resolitions[i][1])
         if(islem==""):
             islem = input("\n\nÇözünürlük Seçin =>")
+            print(f'seçilen islem={islem}')
         #iTag Seçildi
-        self.iTag = self.bul(islem)
-        self.ytDownload()
+            self.iTag = self.bul(islem)
+            self.ytDownload('mp4')
         islem==""
  
     def controlDownload(self):
@@ -66,16 +67,20 @@ class YouTubeInstaller:
         #print('\r' + '[Download progress]:[%s%s]%.2f%%;' % ('█' * int(step*20/filesize), ' '*(20-int(step*20/filesize)), float(remaining)), end='')
         print (f'\rDownload %{step} {"█" *int((100-remaining)/2)}',end="")
 
-    def ytDownload(self):
+    def ytDownload(self,dosya_format):
         try:
             global filesize
+            konum = os.getcwd()
             stream = self.ytLink.streams.get_by_itag(self.iTag)
             print(stream)
             print(f'Dosya boyutu: {stream.filesize}')
             filesize=stream.filesize
             print(f"{renk.OKGREEN}İndirme İşlemi Başladı! Lütfen Bekleyin... {renk.ENDC}")
-            stream.download()
-            konum = os.getcwd()
+            if dosya_format=='mp4':
+                stream.download(konum+"/mp4/")
+            else:
+                stream.download()
+            
             print(f"{renk.OKBLUE}İndirme İşlemi Tamamlandı! {renk.ENDC}")
             print("Dosya Konumu : {0}\{1}".format(konum,self.videoAdi))
             self.downloadDurum = True
@@ -102,7 +107,7 @@ class YouTubeInstaller:
     def mp3Download(self):
         liste = self.ytLink.streams.filter(only_audio=True)
         self.iTag = 251
-        self.ytDownload() 
+        self.ytDownload('mp3') 
 
         #yeniDosyaAdi = self.titleArindir(self.videoAdi)
         #self.uznatiDegistir(self.videoAdi,yeniDosyaAdi,".webm")
