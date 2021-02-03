@@ -17,17 +17,32 @@ while True:
         break
     else:
         try:
-            isim = downloader.videoGiris(video)
-            print(f"{renk.OKBLUE}[TITLE] =>", isim,f"{renk.ENDC}")
-
             while True:
-                print("\nMp4 => +\nMp3 => -")
+                print("\nMp4Liste=>m\nMp4 => +\nMp3 => -")
                 print("Bir Üst Menü İçin => q")
                 format = input("\nFormat Seçin => ")
 
                 if format == "q":
                     break
+                elif format=="m" or format=="M":
+                    #mp4_liste=downloader.playListGiris(video)
+                    print(f"{renk.WARNING} --------------- YouTube Mp3/Mp4 Downloader --------------- {renk.ENDC}")
+                    print(f"{renk.FAIL}\nÇıkış İçin => q {renk.ENDC}")
+                    print("\nMp4 => +\nMp3 => -")
+                    print("Bir Üst Menü İçin => q")
+                    dosya_format = input("\nFormat Seçin => ")
+                    if dosya_format == "q":
+                        break
+                    elif dosya_format=='+':
+                        app.dosya_format='mp4'
+                    else:
+                        app.dosya_format='mp3'
+                    mp4_liste=downloader.playListGiris(video)
+                    #print(f"{renk.OKBLUE}[TITLE] =>", mp4_liste,f"{renk.ENDC}")
+                    
                 elif format == "+":
+                    isim = downloader.videoGiris(video)
+                    print(f"{renk.OKBLUE}[TITLE] =>", isim,f"{renk.ENDC}")
                     downloader.mp4Download()
                     durum = downloader.controlDownload()
                     if durum == True:
@@ -35,6 +50,8 @@ while True:
                     else:
                         exit()
                 elif format == "-":
+                    isim = downloader.videoGiris(video)
+                    print(f"{renk.OKBLUE}[TITLE] =>", isim,f"{renk.ENDC}")
                     downloader.mp3Download()
                     durum = downloader.controlDownload()
                     if durum == True:

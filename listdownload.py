@@ -4,16 +4,22 @@ import app
 
 downloader = app.YouTubeInstaller()
 
-p = Playlist('https://www.youtube.com/watch?v=mf2BF8DFFI4&list=PLzBgi-bjxcqJ4N1yVPAO-Pdcs4PpA97do')
-#print(f'Downloading: {p.title}')
-for video in p.video_urls[:3]:
+#p = Playlist('https://www.youtube.com/playlist?list=PLTYawZdPqADh7C8Myj5hO5KdEgLz3TtUz')
+p = Playlist('https://www.youtube.com/watch?v=tLM23nkmgco&list=PLTYawZdPqADh7C8Myj5hO5KdEgLz3TtUz&index=1')
+print(f'Downloading: {p.title}')
+for video in p.video_urls[:2]:
     print(video)
     try:
         isim = downloader.videoGiris(video)
         #downloader.mp3Download()
-        islem="-"
-        downloader.mp4Download(islem)
-        durum = downloader.controlDownload()
+        islem="+"
+        app.islem=islem
+        try:
+            downloader.mp3Download()
+            durum = downloader.controlDownload()
+        except Exception as e:
+            print(e)
+
     except Exception as e:
         print(e)
     

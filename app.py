@@ -1,13 +1,13 @@
-from pytube import YouTube
+from pytube import YouTube,Playlist
 import colorConsole as color
 import os
 import random
-#from pytube.cli import on_progress
 import ffmpeg
 
 renk = color.mycolors
 filesize=0
 islem=""
+dosya_format=""
 
 
 class YouTubeInstaller:
@@ -19,7 +19,27 @@ class YouTubeInstaller:
         self.iTag = iTag
         self.downloadDurum = downloadDurum
 
-        
+    def playListGiris(self,video):
+        global islem
+        global dosya_format
+        print("İşleniyor...")
+        p = Playlist(video)
+        print(f'Downloading: {p.title}')
+        for videom in p.video_urls:
+            print(videom)
+            try:
+                isim = self.videoGiris(videom)
+                islem="+"
+                try:
+                    if dosya_format=='mp4':
+                        self.mp4Download()
+                    elif dosya_format=='mp3':
+                        self.mp3Download()
+                except Exception as e:
+                    print(e)
+            except Exception as e:
+                print(e)
+
 
     def videoGiris(self,video):
         print("İşleniyor...")
@@ -49,10 +69,10 @@ class YouTubeInstaller:
             print(self.resolitions[i][0], " => ", self.resolitions[i][1])
         if(islem==""):
             islem = input("\n\nÇözünürlük Seçin =>")
-            print(f'seçilen islem={islem}')
+        print(f'seçilen islem={islem}')
         #iTag Seçildi
-            self.iTag = self.bul(islem)
-            self.ytDownload('mp4')
+        self.iTag = self.bul(islem)
+        self.ytDownload('mp4')
         islem==""
  
     def controlDownload(self):
