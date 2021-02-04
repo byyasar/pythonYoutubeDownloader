@@ -29,7 +29,7 @@ class YouTubeInstaller:
             print(videom)
             try:
                 isim = self.videoGiris(videom)
-                islem="+"
+                #islem="+"
                 try:
                     if dosya_format=='mp4':
                         self.mp4Download()

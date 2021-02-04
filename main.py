@@ -18,13 +18,13 @@ while True:
     else:
         try:
             while True:
-                print("\nMp4Liste=>m\nMp4 => +\nMp3 => -")
+                print("\nMp4Liste=>L\nMp4 => +\nMp3 => -")
                 print("Bir Üst Menü İçin => q")
                 format = input("\nFormat Seçin => ")
 
                 if format == "q":
                     break
-                elif format=="m" or format=="M":
+                elif format=="l" or format=="L":
                     #mp4_liste=downloader.playListGiris(video)
                     print(f"{renk.WARNING} --------------- YouTube Mp3/Mp4 Downloader --------------- {renk.ENDC}")
                     print(f"{renk.FAIL}\nÇıkış İçin => q {renk.ENDC}")
@@ -35,6 +35,7 @@ while True:
                         break
                     elif dosya_format=='+':
                         app.dosya_format='mp4'
+                        app.islem="-"
                     else:
                         app.dosya_format='mp3'
                     mp4_liste=downloader.playListGiris(video)
